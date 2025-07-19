@@ -1,16 +1,15 @@
 class BumpVersionhCli < Formula
-  desc "CLI toolkit for visualizing folder structures with markdown reports"
+  desc "CLI tool for bumping semantic versions in Bash scripts and updating changelogs"
   homepage "https://github.com/raymonepping/bump_version_cli"
   url "https://github.com/raymonepping/homebrew-bump-version-cli/archive/refs/tags/v0.2.0.tar.gz"
   sha256 "b1a8ba1354d83ee85fb5885b09a994bc0fb98824d0108b1c9125145825e8372e"
   license "MIT"
-  version "0.0.2"
+  version "0.2.0"
 
   depends_on "bash"
 
   def install
     bin.install "bin/bump_version" => "bump_version"
-    doc.install "README.md"
   end
 
   def caveats
