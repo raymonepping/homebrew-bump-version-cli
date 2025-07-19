@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # shellcheck disable=SC2034
-VERSION="0.5.9"
+VERSION="0.5.15"
 
 # --- Define Colors for Output ---
 RED='\033[1;31m'
@@ -182,8 +182,11 @@ else
   rm -f "$tmpfile_sc"
 fi
 
-# --- Replace VERSION line ---
+# --- Replace VERSION line, preserve executable bit safely ---
 TMPFILE="$(dirname "$SCRIPT_PATH")/.bump_tmp_$$"
+
+# Save original mode (as octal string!)
+ORIGINAL_MODE=$(stat -f "%Mp%Lp" "$SCRIPT_PATH" 2>/dev/null || stat --format "%a" "$SCRIPT_PATH")
 was_executable=0
 [[ -x "$SCRIPT_PATH" ]] && was_executable=1
 
@@ -192,7 +195,17 @@ awk -v v="VERSION=\"${new_version}\"" '
   { print }
 ' "$SCRIPT_PATH" >"$TMPFILE" && mv "$TMPFILE" "$SCRIPT_PATH"
 
-[[ "$was_executable" == "1" ]] && chmod +x "$SCRIPT_PATH"
+# Restore original numeric permissions (octal) -- ONLY if stat succeeded
+if [[ -n "$ORIGINAL_MODE" ]]; then
+  # Prefix with 0 for octal mode, unless already there (handles both macOS and Linux)
+  case "$ORIGINAL_MODE" in
+    0*) chmod "$ORIGINAL_MODE" "$SCRIPT_PATH" ;;
+    *) chmod "0$ORIGINAL_MODE" "$SCRIPT_PATH" ;;
+  esac
+fi
+
+# (Extra-safe) restore +x if it was originally executable
+[[ "$was_executable" == "1" ]] && chmod u+x "$SCRIPT_PATH"
 
 # --- Build CHANGELOG entry ---
 timestamp=$(date "+%Y-%m-%d %H:%M:%S")
