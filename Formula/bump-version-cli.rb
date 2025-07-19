@@ -1,32 +1,32 @@
-class CommitGhCli < Formula
+class BumpVersionhCli < Formula
   desc "CLI toolkit for visualizing folder structures with markdown reports"
-  homepage "https://github.com/raymonepping/commit_gh_cli"
-  url "https://github.com/raymonepping/homebrew-commit-gh-cli/archive/refs/tags/v0.0.2.tar.gz"
-  sha256 "552de6f4f9ef778906ae30e963929233da8a8efdeb5ea762dcf0fa8364e1b279"
+  homepage "https://github.com/raymonepping/bump_version_cli"
+  url "https://github.com/raymonepping/homebrew-bump-version-cli/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "b1a8ba1354d83ee85fb5885b09a994bc0fb98824d0108b1c9125145825e8372e"
   license "MIT"
   version "0.0.2"
 
   depends_on "bash"
 
   def install
-    bin.install "bin/commit_gh" => "commit_gh"
+    bin.install "bin/bump_version" => "bump_version"
     doc.install "README.md"
   end
 
   def caveats
     <<~EOS
       To get started, run:
-        commit_gh --help
+        bump_version --help
 
       This CLI helps manage Git commits, tags, and semantic versioning.
       It uses a .version file for tracking current state.
 
       Example usage:
-        commit_gh --bump patch --verify
+        bump_version script.sh --minor
     EOS
   end
 
   test do
-    assert_match "commit_gh", shell_output("#{bin}/commit_gh --help")
+    assert_match "bump_version", shell_output("#{bin}/bump_version --help")
   end
 end
