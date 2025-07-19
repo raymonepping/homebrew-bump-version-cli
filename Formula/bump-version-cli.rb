@@ -1,4 +1,5 @@
-class BumpVersionhCli < Formula
+class BumpVersionCli < Formula
+
   desc "CLI tool for bumping semantic versions in Bash scripts and updating changelogs"
   homepage "https://github.com/raymonepping/bump_version_cli"
   url "https://github.com/raymonepping/homebrew-bump-version-cli/archive/refs/tags/v0.3.0.tar.gz"
