@@ -2,8 +2,8 @@ class BumpVersionCli < Formula
 
   desc "CLI tool for bumping semantic versions in Bash scripts and updating changelogs"
   homepage "https://github.com/raymonepping/bump_version_cli"
-  url "https://github.com/raymonepping/homebrew-bump_version_cli/archive/refs/tags/v0.5.12.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  url "https://github.com/raymonepping/homebrew-bump-version-cli/archive/refs/tags/v--publish-gh-release.tar.gz"
+  sha256 "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
   license "MIT"
   version "0.5.11"
 
